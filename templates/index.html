@@ -3,21 +3,77 @@
 {% block title %}Inicio{% endblock %}
 
 {% block content %}
-    <!--<h1 class="text-center">Bienvenido a la Aplicacion</h1>
+<!--<h1 class="text-center">Bienvenido a la Aplicacion</h1>
     <a href="{{ url_for('register') }}" class="btn btn-primary">Registrarse</a>
     <a href="{{ url_for('login') }}" class="btn btn-primary">Iniciar sesión</a> -->
-
-    <div class="container text-center mt-3">
-        <!--<h3 class="mb-3">Bienvenido a la Aplicación</h3> -->
-    
-        <!-- Imagen decorativa -->
-        <img src="{{ url_for('static', filename='bienvenida.png') }}" 
-             alt="Bienvenida" class="img-fluid rounded mb-4" style="max-height: 250px; object-fit: cover;">
-    
-        <!-- Botones centrados -->
-        <div class="d-flex justify-content-center gap-3">
-            <a href="{{ url_for('register') }}" class="btn btn-primary">Registrarse</a>
-            <a href="{{ url_for('login') }}" class="btn btn-outline-primary">Iniciar sesión</a>
-        </div>
+<!-- NAVBAR -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4 shadow-sm rounded">
+    <div class="container-fluid">
+        <!-- Logo + Blog -->
+        <a class="navbar-brand d-flex align-items-center" href="#">
+            <img src="{{ url_for('static', filename='logo.png') }}" alt="Logo" width="40" height="40"
+                class="d-inline-block align-text-top me-4">
+            <strong>¡Bienvenido a Blog Sistems!</strong>
+        </a>
     </div>
-{% endblock %}
+</nav>
+
+<div class="container text-center ">
+    <!--<h3 class="mb-3">Bienvenido a la Aplicación</h3> -->
+
+    <!-- Imagen decorativa -->
+    <img src="{{ url_for('static', filename='bienvenida.png') }}" alt="Bienvenida" class="img-fluid rounded mb-4"
+        style="max-height: 250px; object-fit: cover;">
+
+    <!-- Botones centrados -->
+    <div class="d-flex justify-content-center gap-3">
+        <a href="{{ url_for('register') }}" class="btn btn-primary">Registrarse</a>
+        <a href="{{ url_for('login') }}" class="btn btn-outline-primary">Iniciar sesión</a>
+    </div>
+
+</div>
+
+<!-- Contenido principal -->
+<div class="container">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h4 class="mb-0">Posts publicados</h4>
+    </div>
+
+    <div class="row">
+        {% for post in posts %}
+        <div class="col-md-6 col-lg-4 mb-4">
+            <!-- Columna responsiva, 2 tarjetas por fila en pantallas medianas y 3 en pantallas grandes -->
+            <div class="card shadow-lg p-2 border-0 h-100"> <!-- Aseguramos que las tarjetas tengan la misma altura -->
+                <div class="card-body d-flex flex-column">
+                    <!-- Título en negrita -->
+                    <h5 class="card-title font-weight-bold">{{ post['title'] }}</h5>
+
+                    <!-- Contenido con tamaño de fuente pequeño -->
+                    <p class="card-text small" style="white-space: pre-line;">{{ post['content'] }}</p>
+
+                    <!-- Información de la publicación -->
+                    <p class="text-muted">
+                        <small>Publicado por {{ post['username'] }} el {{ post['created_at'] }}</small>
+                    </p>
+
+                    <!-- Contadores de like y dislike al final a la derecha -->
+                    <div class="d-flex justify-content-end mt-auto"> <!-- mt-auto para empujar los botones al final -->
+                        <button class="btn btn-sm btn-outline-danger me-2" id="like-{{ post['id'] }}">
+                            <i class="bi bi-heart-fill"></i> <span id="like-count-{{ post['id'] }}">12</span>
+                        </button>
+                        <button class="btn btn-sm btn-outline-secondary" id="dislike-{{ post['id'] }}">
+                            <i class="bi bi-hand-thumbs-down-fill"></i> <span
+                                id="dislike-count-{{ post['id'] }}">5</span>
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        {% else %}
+        <p class="text-muted">No hay publicaciones aún.</p>
+        {% endfor %}
+    </div>
+
+
+    {% endblock %}

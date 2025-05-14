@@ -118,11 +118,13 @@ def login():
 @login_required
 def dashboard():
     conn = get_db_connection()
-    posts = conn.execute('''
+    posts = conn.execute(''' 
         SELECT posts.*, users.username 
-        FROM posts JOIN users ON posts.user_id = users.id
+        FROM posts 
+        JOIN users ON posts.user_id = users.id
+        WHERE posts.user_id = ?
         ORDER BY posts.created_at DESC
-    ''').fetchall()
+    ''', (current_user.id,)).fetchall()
     conn.close()
     return render_template('dashboard.html', username=current_user.username, posts=posts)
 
@@ -132,7 +134,7 @@ def dashboard():
 def logout():
     logout_user()
     flash('Has cerrado sesión.', 'success')
-    return redirect(url_for('login'))
+    return redirect(url_for('index'))
 
 
 # crear post

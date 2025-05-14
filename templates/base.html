@@ -66,4 +66,39 @@
         crossorigin="anonymous"></script>
 </body>
 
+<script>
+    // Función para aumentar el contador de likes
+    document.querySelectorAll('[id^="like-"]').forEach(function(button) {
+        button.addEventListener('click', function() {
+            // Obtener el ID del post
+            const postId = this.id.split('-')[1];
+
+            // Obtener el contador de likes
+            const likeCountElement = document.getElementById(`like-count-${postId}`);
+            let likeCount = parseInt(likeCountElement.innerText);
+
+            // Aumentar el contador
+            likeCount++;
+            likeCountElement.innerText = likeCount;
+        });
+    });
+
+    // Función para aumentar el contador de dislikes
+    document.querySelectorAll('[id^="dislike-"]').forEach(function(button) {
+        button.addEventListener('click', function() {
+            // Obtener el ID del post
+            const postId = this.id.split('-')[1];
+
+            // Obtener el contador de dislikes
+            const dislikeCountElement = document.getElementById(`dislike-count-${postId}`);
+            let dislikeCount = parseInt(dislikeCountElement.innerText);
+
+            // Aumentar el contador
+            dislikeCount++;
+            dislikeCountElement.innerText = dislikeCount;
+        });
+    });
+</script>
+
+
 </html>

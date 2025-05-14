@@ -32,7 +32,7 @@
 <!-- Contenido principal -->
 <div class="container">
     <div class="d-flex justify-content-between align-items-center mb-3">
-        <h4 class="mb-0">Posts publicados</h4>
+        <h4 class="mb-0">Mis posts publicados</h4>
         <a href="{{ url_for('create_post') }}" class="btn btn-success">
             <i class="bi bi-plus-circle me-2"></i> Añadir Post
         </a>
@@ -40,7 +40,7 @@
 
     <!-- Lista de posts -->
     {% for post in posts %}
-    <div class="card mb-3">
+    <div class="card mb-3 shadow-lg p-2">
         <div class="card-body">
             <!-- Título en negrita -->
             <h5 class="card-title font-weight-bold">{{ post['title'] }}</h5>
