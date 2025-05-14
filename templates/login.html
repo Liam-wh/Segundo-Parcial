@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block title %}Login{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-center align-items-center" style="min-height: 80vh;">
+    <div class="card shadow-lg p-4" style="width: 100%; max-width: 400px;">
+        <div class="card-body text-center">
+            <!-- Ícono bonito -->
+            <div class="mb-3">
+                <i class="bi bi-person-circle" style="font-size: 4rem; color: #198754;"></i>
+            </div>
+            <h2 class="card-title mb-4">Iniciar sesión</h2>
+            <form method="post">
+                <div class="mb-3 text-start">
+                    <label class="form-label"><i class="bi bi-person-circle me-2"></i>Nombre de usuario</label>
+                    <input type="text" class="form-control" name="username" placeholder="Usuario" required>
+                </div>
+                <div class="mb-3 text-start">
+                    <label class="form-label"><i class="bi bi-lock-fill me-2"></i>Contraseña</label>
+                    <input type="password" class="form-control" name="password" placeholder="••••••••" required>
+                </div>
+                <div class="d-grid">
+                    <button class="btn btn-success">Ingresar</button>
+                </div>
+            </form>
+            <div class="text-center mt-3">
+                <a href="{{ url_for('index') }}" class="btn btn-outline-secondary btn-sm">
+                    <i class="bi bi-arrow-left-circle me-1"></i> Volver al inicio
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

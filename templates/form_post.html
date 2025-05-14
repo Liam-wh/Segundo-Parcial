@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block title %}
+{% if post %}Editar Post{% else %}Nuevo Post{% endif %}
+{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-center align-items-center" style="min-height: 90vh;">
+    <div class="card shadow-lg p-4" style="width: 100%; max-width: 600px;">
+        <div class="card-body">
+            <div class="form-title text-center mb-4">
+                {% if post %}
+                <h3 class="mb-0 font-weight-bold"><i class="bi bi-pencil-fill me-2"></i>Editar Publicación</h3>
+                {% else %}
+                <h3 class="mb-0 font-weight-bold"><i class="bi bi-file-earmark-text-fill me-2"></i>Crear Nueva
+                    Publicación</h3>
+                {% endif %}
+            </div>
+
+            <form action="" method="POST">
+                <!-- Título -->
+                <div class="mb-3">
+                    <label class="form-label"><i class="bi bi-pencil-fill me-2"></i>Título</label>
+                    <input type="text" class="form-control" name="title" placeholder="Escribe un título atractivo"
+                        value="{{ post.title if post else '' }}" required>
+                </div>
+
+                <!-- Contenido -->
+                <div class="mb-3">
+                    <label class="form-label"><i class="bi bi-file-earmark-text-fill me-2"></i>Contenido</label>
+                    <textarea name="content" class="form-control" rows="7"
+                        placeholder="Comparte tus ideas, recetas, reflexiones o noticias..."
+                        required>{{ post.content if post else '' }}</textarea>
+                </div>
+
+                <!-- Botón -->
+                <div class="d-grid">
+                    <button type="submit" class="btn btn-primary">
+                        <i class="bi bi-send-fill me-2"></i> Publicar Post
+                    </button>
+                </div>
+            </form>
+
+
+        </div>
+    </div>
+</div>
+{% endblock %}

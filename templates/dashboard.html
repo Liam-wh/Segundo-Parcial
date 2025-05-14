@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+<!-- NAVBAR -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4 shadow-sm rounded">
+    <div class="container-fluid">
+        <!-- Logo + Blog -->
+        <a class="navbar-brand d-flex align-items-center" href="#">
+            <img src="{{ url_for('static', filename='logo.png') }}" alt="Logo" width="60" height="60"
+                class="d-inline-block align-text-top me-2">
+            <strong> Blog Sistems</strong>
+        </a>
+
+        <!-- Verifica si el usuario está autenticado -->
+        {% if current_user.is_authenticated %}
+        <div class="ms-auto d-flex align-items-center">
+            <span class="text-white me-3">
+                <i class="bi bi-person-circle me-1"></i>{{ current_user.username }}
+            </span>
+            <a href="{{ url_for('logout') }}" class="btn btn-danger btn-logout"
+                onclick="return confirm('¿Está seguro de cerrar sesión?')">
+                <i class="bi bi-box-arrow-right"></i><span>Cerrar sesión</span>
+            </a>
+        </div>
+        {% endif %}
+
+    </div>
+</nav>
+
+<!-- Contenido principal -->
+<div class="container">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h4 class="mb-0">Posts publicados</h4>
+        <a href="{{ url_for('create_post') }}" class="btn btn-success">
+            <i class="bi bi-plus-circle me-2"></i> Añadir Post
+        </a>
+    </div>
+
+    <!-- Lista de posts -->
+    {% for post in posts %}
+    <div class="card mb-3">
+        <div class="card-body">
+            <!-- Título en negrita -->
+            <h5 class="card-title font-weight-bold">{{ post['title'] }}</h5>
+
+            <!-- Contenido con tamaño de fuente pequeño -->
+            <p class="card-text small" style="white-space: pre-line;">{{ post['content'] }}</p>
+
+            <!-- Información de la publicación -->
+            <p class="text-muted">
+                <small>Publicado por {{ post['username'] }} el {{ post['created_at'] }}</small>
+            </p>
+
+            <!-- Botones de editar y eliminar solo para el autor -->
+            {% if post['user_id'] == current_user.id %}
+            <a href="{{ url_for('edit_post', post_id=post['id']) }}" class="btn btn-sm btn-warning">
+                <i class="bi bi-pencil-fill"></i> Editar
+            </a>
+            <a href="{{ url_for('delete_post', post_id=post['id']) }}" class="btn btn-sm btn-danger"
+                onclick="return confirm('¿Eliminar este post?')">
+                <i class="bi bi-trash-fill"></i> Eliminar
+            </a>
+            {% endif %}
+
+            <!-- Contadores de like y dislike al final a la derecha -->
+            <div class="d-flex justify-content-end mt-3">
+                <button class="btn btn-sm btn-outline-danger me-2" id="like-{{ post['id'] }}">
+                    <i class="bi bi-heart-fill"></i> <span id="like-count-{{ post['id'] }}">12</span>
+                </button>
+                <button class="btn btn-sm btn-outline-secondary" id="dislike-{{ post['id'] }}">
+                    <i class="bi bi-hand-thumbs-down-fill"></i> <span id="dislike-count-{{ post['id'] }}">5</span>
+                </button>
+            </div>
+
+        </div>
+    </div>
+    {% else %}
+    <p class="text-muted">No hay publicaciones aún.</p>
+    {% endfor %}
+
+
+    {% endblock %}

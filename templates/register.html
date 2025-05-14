@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block title %}Registro{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-center align-items-center" style="min-height: 90vh;">
+    <div class="card shadow-lg p-4" style="width: 100%; max-width: 500px;">
+        <div class="card-body">
+            <div class="d-flex justify-content-center align-items-center mb-4">
+                <i class="bi bi-person-plus-fill" style="font-size: 2rem; color: #0d6efd; margin-right: 12px;"></i>
+                <h3 class="mb-0">Crear una cuenta</h3>
+            </div>            
+
+            <form method="post">
+                <div class="mb-3">
+                    <label class="form-label"><i class="bi bi-person-badge-fill me-2"></i>Nombre de Usuario</label>
+                    <input type="text" class="form-control" name="username" placeholder="usuario123" required>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label"><i class="bi bi-lock-fill me-2"></i>Contraseña</label>
+                    <input type="password" class="form-control" name="password" placeholder="••••••••" required>
+                </div>
+                <div class="d-grid">
+                    <button class="btn btn-primary"><i class="bi bi-check-circle-fill me-2"></i>Registrar</button>
+                </div>
+            </form>
+
+            <div class="text-center mt-4">
+                <a href="{{ url_for('index') }}" class="btn btn-outline-secondary btn-sm">
+                    <i class="bi bi-arrow-left-circle me-1"></i> Volver al inicio
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
